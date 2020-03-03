@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-03-03T02:33:44Z</date>
+    <groups>
+        <group>
+            <name>Templates/Custom</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template LE certificates information</template>
+            <name>Template LE certificates information</name>
+            <groups>
+                <group>
+                    <name>Templates/Custom</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>LE Certificates</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>All info about LE certificates</name>
+                    <key>letsencrypt.certs.info</key>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>LE Certificates</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Поиск LE Сертификатов</name>
+                    <key>letsencrypt.discovery</key>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>LE Сертификат - {#CERTIFICATE} - Срок действия [Начало]</name>
+                            <type>DEPENDENT</type>
+                            <key>letsencrypt.certs.info.after.date[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>LE Certificates</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].AFTER_DATE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>letsencrypt.certs.info</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>LE Сертификат - {#CERTIFICATE} - Срок действия [Конец]</name>
+                            <type>DEPENDENT</type>
+                            <key>letsencrypt.certs.info.before.date[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>LE Certificates</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].BEFORE_DATE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>letsencrypt.certs.info</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>LE certificate - {#CERTIFICATE} - Common Name</name>
+                            <type>DEPENDENT</type>
+                            <key>letsencrypt.certs.info.cn[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>LE Certificates</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].SUBJECT</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>letsencrypt.certs.info</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>LE Сертификат - {#CERTIFICATE} - Срок действия [Осталось дней]</name>
+                            <type>DEPENDENT</type>
+                            <key>letsencrypt.certs.info.days.left[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <units>Дней</units>
+                            <applications>
+                                <application>
+                                    <name>LE Certificates</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].DAYS_LEFT</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>letsencrypt.certs.info</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;=2</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>DISASTER</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;=10</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;=20</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;=30</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CERTIFICATE}</lld_macro>
+                            <path>$.['CERTIFICATE']</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>

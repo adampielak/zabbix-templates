@@ -1,3 +1,2 @@
 zabbix-agent ALL=(ALL) NOPASSWD: /etc/zabbix/scripts/le-certificates.sh discovery
 zabbix-agent ALL=(ALL) NOPASSWD: /etc/zabbix/scripts/le-certificates.sh information
-'Defaults:zabbix-agent !requiretty'

@@ -1,4 +1,4 @@
-![zabbix logo](https://assets.zabbix.com/img/logo/zabbix_logo_500x131.png)[![N|letsencrypt logo](https://avatars0.githubusercontent.com/u/9289019?s=200&v=4)](https://github.com/letsencrypt) [![N|certbot log](https://certbot.eff.org/images/Certbot-solid.svg)](https://github.com/certbot/certbot)
+[![N|zabbix logo](https://hsto.org/webt/zh/cc/wu/zhccwuraecl9ago_v38mczpzfhk.png?v=1)](https://www.zabbix.com/)[![N|letsencrypt logo](https://avatars0.githubusercontent.com/u/9289019?s=200&v=4)](https://github.com/letsencrypt) [![N|certbot log](https://certbot.eff.org/images/Certbot-solid.svg)](https://github.com/certbot/certbot)
 # Шаблон для мониторинга сертификатов Let's Encrypt созданных с помощью Certbot
 
 > **Установка:**

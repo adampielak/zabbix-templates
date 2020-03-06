@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-03-05T10:53:10Z</date>
+    <date>2020-03-06T02:44:32Z</date>
     <groups>
         <group>
             <name>Templates/Custom</name>
@@ -18,7 +18,7 @@
             </groups>
             <applications>
                 <application>
-                    <name>LE certificates information</name>
+                    <name>LE certificates - information</name>
                 </application>
             </applications>
             <items>
@@ -30,7 +30,7 @@
                     <value_type>TEXT</value_type>
                     <applications>
                         <application>
-                            <name>LE certificates information</name>
+                            <name>LE certificates - information</name>
                         </application>
                     </applications>
                 </item>
@@ -39,7 +39,7 @@
                 <discovery_rule>
                     <name>LE certificates discovery</name>
                     <key>le.certificates.discovery</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <item_prototypes>
                         <item_prototype>
                             <name>{#CERTIFICATE} - [Период действия - начало]</name>
@@ -50,7 +50,7 @@
                             <value_type>TEXT</value_type>
                             <applications>
                                 <application>
-                                    <name>LE certificates information</name>
+                                    <name>LE certificates - information</name>
                                 </application>
                             </applications>
                             <preprocessing>
@@ -70,9 +70,14 @@
                             <delay>0</delay>
                             <applications>
                                 <application>
-                                    <name>LE certificates information</name>
+                                    <name>LE certificates - information</name>
                                 </application>
                             </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>LE certificates - other values</name>
+                                </application_prototype>
+                            </application_prototypes>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
@@ -92,7 +97,7 @@
                             <value_type>TEXT</value_type>
                             <applications>
                                 <application>
-                                    <name>LE certificates information</name>
+                                    <name>LE certificates - information</name>
                                 </application>
                             </applications>
                             <preprocessing>
@@ -114,7 +119,7 @@
                             <value_type>TEXT</value_type>
                             <applications>
                                 <application>
-                                    <name>LE certificates information</name>
+                                    <name>LE certificates - information</name>
                                 </application>
                             </applications>
                             <preprocessing>
@@ -136,7 +141,7 @@
                             <params>last(&quot;le.certificates.information.before.date.unixtime.[{#CERTIFICATE}]&quot;)-last(system.localtime)</params>
                             <applications>
                                 <application>
-                                    <name>LE certificates information</name>
+                                    <name>LE certificates - information</name>
                                 </application>
                             </applications>
                             <trigger_prototypes>
@@ -158,6 +163,7 @@
                                 <trigger_prototype>
                                     <expression>{last()}&lt;={$SEVERITY_INFORMATION_DAYS_LEFT}</expression>
                                     <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <status>DISABLED</status>
                                     <priority>INFO</priority>
                                 </trigger_prototype>
                                 <trigger_prototype>
@@ -179,23 +185,23 @@
             <macros>
                 <macro>
                     <macro>{$SEVERITY_AVERAGE_DAYS_LEFT}</macro>
-                    <value>20</value>
+                    <value>20d</value>
                 </macro>
                 <macro>
                     <macro>{$SEVERITY_DISASTER_DAYS_LEFT}</macro>
-                    <value>30</value>
+                    <value>30d</value>
                 </macro>
                 <macro>
                     <macro>{$SEVERITY_HIGH_DAYS_LEFT}</macro>
-                    <value>10</value>
+                    <value>10d</value>
                 </macro>
                 <macro>
                     <macro>{$SEVERITY_INFORMATION_DAYS_LEFT}</macro>
-                    <value>30</value>
+                    <value>90d</value>
                 </macro>
                 <macro>
                     <macro>{$SEVERITY_WARNING_DAYS_LEFT}</macro>
-                    <value>28</value>
+                    <value>28d</value>
                 </macro>
             </macros>
         </template>
